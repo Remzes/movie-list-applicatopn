@@ -1,0 +1,14 @@
+#!/bin/bash
+clear
+tput cup 0 35; echo -e "\e[1;31mCopyright 2016 - Viktor Salnichenko - COMP301\e[0m"
+tput cup 2 25; echo -e "\e[1;37;44m                             "
+tput cup 3 25; echo -e " List of my favourite movies "
+tput cup 4 25; echo -e "                             \e[0m"
+tput cup 6 5; 
+echo -e "  \e[7mName\e[27m          \e[7mYear\e[27m  \e[7mGenre\e[27m                \e[7mDirector\e[27m             \e[7mCountry\e[27m"
+tput cup 7 5;
+echo "  ----          ----  -----                --------             -------"
+awk -F: '{printf "  %-18s %-5.4d %-20s %-20s %-15s\n", $1, $2, $3, $4, $5}' my_movies_list
+tput cup 19 10; echo "Press ENTER to continue...";
+read prompt || continue;
+clear 

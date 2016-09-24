@@ -1,0 +1,58 @@
+#!/bin/bash
+clear
+movies=~/source3/my_movies_list
+check="y"
+while test $check = "y"
+do
+tput cup 1 5; echo -e "\e[1;37;44m              "
+tput cup 2 5; echo -e " Search Movie "
+tput cup 3 5; echo -e "              \e[0m"
+tput cup 2 35; echo -e "\e[1;31mCopyright 2016 - Viktor Salnichenko - COMP301\e[0m"
+tput cup 5 5; echo "Choose and type one from a title," 
+tput cup 6 5; echo -e "year, genre, director \e[31mor\e[0m country"
+tput cup 7 5; echo "of the movie which you want to find"
+tput cup 9 5; echo -e "\e[4mType here:\e[0m "
+tput cup 9 16; read input || continue
+tput cup 9 16; echo "                                        "
+while test -z $input
+do
+ tput cup 9 16; echo -e "\e[1;31mInput can't be empty!\e[0m Press ENTER to try again..."
+ sleep 1s;
+ tput cup 9 16; echo "                                                                         "
+ tput cup 9 16; read input
+done
+if test "$input" = "q" -o "$input" = "Q"
+then 
+ clear ; exit
+fi
+output=`grep -i "$input" my_movies_list`
+touch check_file
+echo "$output" > check_file
+awk ' BEGIN {
+   { FS = ":" }
+   }
+   { printf "\t%-15.15s %4.4d\t%-20s %-20s %-15s\n", $1, $2, $3, $4,
+   $5 } ' check_file > copy_of_cf
+mv copy_of_cf check_file
+if test -n "$output" 
+then
+ tput cup 11 5; echo -e "\e[1;92;100mLook what we found :) !\e[0m\n"
+ tput cup 12 0; echo "                                                                                           "
+ tput cup 13 5; echo -e "\e[7m\tName\t\tYear\tGenre\t\t\e[27m     \e[7mDirector\t\t\e[27m  \e[7mCountry\e[27m\n"
+ tput cup 14 5; echo -e "\t----\t\t----\t-----\t\t     --------\t\t  ------"
+ cat check_file 
+else 
+ tput cup 11 5; echo -e "\e[106mWe haven't found any movies :( Please, try again...\e[0m"
+fi
+ tput cup 19 5; echo "Press ENTER to continue..."
+ tput cup 20 5; read prompt || continue
+ count=10
+ while test $count -lt 21
+ do
+ tput cup $count 0;
+ echo -e "                                                                                          "
+ ((count++))
+ done
+ count=10
+ rm check_file
+done

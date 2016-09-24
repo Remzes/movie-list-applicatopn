@@ -1,0 +1,13 @@
+#!/usr/bin/perl
+use strict;
+my $counter = 0;
+open(FILE, '<', "my_movies_list");
+while (my $line = <FILE>){
+    if ($line =~ /^\s*$/){
+    $counter+=0;
+    }else {
+	$counter++;
+    }
+}
+close(FILE);
+print $counter;

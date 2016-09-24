@@ -1,0 +1,25 @@
+#!bin/bash
+sorted_by_title()
+{
+ sort -t: -k 1 my_movies_list > sort_movie
+ awk -F: '{printf "\033[1;7m\t%-19.18s %-5.4d %-20s %-20s %-15s\033[0;27m\n", $1, $2, $3, $4, $5}' sort_movie
+ rm sort_movie
+}
+sorted_by_year()
+{
+ sort -t: -k 2 my_movies_list > sort_movie
+  awk -F: '{printf "\033[1;7m\t%-19.18s %-5.4d %-20s %-20s %-15s\033[0;27m\n", $1, $2, $3, $4, $5}' sort_movie
+ rm sort_movie
+}
+sorted_by_year_reversed()
+{
+ sort -t: -k 2 -r my_movies_list > sort_movie
+ awk -F: '{printf "\033[1;7m\t%-19.18s %-5.4d %-20s %-20s %-15s\033[0;27m\n", $1, $2, $3, $4, $5}' sort_movie
+ rm sort_movie
+}
+sorted_by_director()
+{
+ sort -t: -k 4 my_movies_list > sort_movie
+ awk -F: '{printf "\033[1;7m\t%-19.18s %-5.4d %-20s %-20s %-15s\033[0;27m\n", $1, $2, $3, $4, $5}' sort_movie
+ rm sort_movie
+}

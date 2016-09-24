@@ -1,0 +1,57 @@
+#!/bin/bash
+clear
+check="y"
+while test "$check" = "y"
+do 
+tput cup 7 2; echo -e "\e[1;7mInstructions"
+tput cup 8 2; echo -e "For Teacher !!!"
+tput cup 10 2; echo -e "press 'N' "
+tput cup 11 2; echo -e "to read it"
+
+tput cup 0 17; echo -e "\e[1;31mCopyright 2016 - Viktor Salnichenko - COMP301\e[0m"
+tput cup 2 12; echo -e "\e[1;7mCarefully read instructions before using the program!\e[0m";
+tput cup 4 20; echo -e '\e[44m'"                                        "
+tput cup 5 20; echo -e "          \e[1;4;93mMY MOVIE LIST MENU\e[0m\e[44m            "
+tput cup 6 20; echo -e "                                        \e[0m" 
+tput cup 7 20; echo -e "\e[1;46;92m****************************************"
+tput cup 8 20; echo -e "*                                      *"
+tput cup 9 20; echo -e "*      Choose an option:               *"
+tput cup 10 20; echo -e "* 'R' - Read instructions about usage  *"
+tput cup 11 20; echo -e "* 'V' - View information about movies  *"
+tput cup 12 20; echo -e "* 'A' - Add information about movie    *"
+tput cup 13 20; echo -e "* 'D' - Delete information about movie *"
+tput cup 14 20; echo -e "* 'E' - Edit a record in a movie list  *"
+tput cup 15 20; echo -e "* 'St' - Sort information about movies *"
+tput cup 16 20; echo -e "* 'Sh' - Search the movie              *"
+tput cup 17 20; echo -e "* 'Q' - Exit the program               *"
+tput cup 18 20; echo -e "*                                      *"
+tput cup 19 20; echo -e "****************************************\e[0m"
+tput cup 21 25; echo -e "\e[106mMake your choice:\e[0m "
+tput cup 21 42;
+read choice || continue
+tput cup 21 42; echo "                             "
+case $choice in
+[Vv]) clear; ./view_movie_list ;;
+[Rr]) clear; ./read_instructions ;;
+[Aa]) ./add_new_movie ;;
+[Nn]) clear; less read_teacher ;;
+"St") ./sort_movies ;;
+"ST") ./sort_movies ;;
+"st") ./sort_movies ;;
+"Sh") ./search_movie ;;
+"SH") ./search_movie ;;
+"sh") ./search_movie ;;
+[Dd]) ./delete_movie ;;
+[Ee]) ./make_changes ;;
+[Qq])  
+tput cup 22 1; echo -e "\e[1;4;31mSee you!\e[0m";
+sleep 1s;
+clear;
+exit ;;
+*) 
+tput cup 22 30;
+echo -e "\e[1;31mWrong option!\e[0mTry again..."
+sleep 2s;
+tput cup 22 30; echo "                                 ";;
+esac
+done

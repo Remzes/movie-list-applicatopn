@@ -1,0 +1,24 @@
+A plan of my 3rd Assignemt
+Attention: your terminal should be AT LEAST 95PX AT WIDTH FOR AN
+APPROPRIATE WAY TO USE IT
+
+Note: In the './add_new_movie is a realy bad code, the ./search_movie and 
+./make_changes scripts code is better, bacues I did them last'
+
+List of my scripts:
+./menu_movies - main script, main menu of program
+my_movies_list - file with all movies
+./add_new_movie - add new movie to the file with movies
+./make_changes - edit a movie from the file with movies
+./read_instructions - read instructions about 'How to use program'
+./search_movie - search movie by the specific patter in the file with movies
+./sort_movies - look sorted information about movies
+./user_recognition - script which is used for the ./read_instructions script 
+		     and print the name of user which is taken from 
+		     /etc/passwd file
+./view_movies - view all movies from the file with movies
+./delete_movies - delete movies by the specific patter
+line_count_sort_movies - perl script, it counts lines in 'my_movies_list' file
+		       	 and it is used in ./sort_movies script. This is
+			 upgrated version of 'wc -l' command because it
+			 doesn't count in file

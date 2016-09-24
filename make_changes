@@ -1,0 +1,77 @@
+#!/bin/bash
+clear
+movies=~/source3/my_movies_list
+check="y"
+while test $check = "y"
+do
+tput cup 1 5; echo -e "\e[1;37;44m            "
+tput cup 2 5; echo -e " Edit movie "
+tput cup 3 5; echo -e "            \e[0m"
+tput cup 2 35; echo -e "\e[1;31mCopyright 2016 - Viktor Salnichenko - COMP301\e[0m"
+tput cup 5 5; echo -e "\e[1m1)\e[0m Enther the \e[1;31mTitle\e[0m of the movie" 
+tput cup 6 5; echo -e "\e[1m2)\e[0m Look at the found line"
+tput cup 7 5; echo -e "\e[1m3)\e[0m Choose the field where you want to make changes \e[4m(1-5)\e[0m"
+tput cup 8 5; echo -e "\e[1m4)\e[0m Write new title, director or etc. for this field"
+tput cup 9 5; echo -e "\e[1m5)\e[0m Here we are :)"
+tput cup 11 10; echo -e "\e[4mType \e[31mtitle\e[0m\e[4m here:\e[24m "
+tput cup 11 27; read title || continue
+tput cup 11 27; echo "                            "
+if test "$title" = "q" -o "$title" = "Q"
+then
+ clear ; exit
+fi
+ while test -z "$title"
+ do 
+ tput cup 11 27; echo -e "\e[1;31mInput is empty.\e[0m Press ENTER to try again..."
+ sleep 1s;
+ tput cup 11 27; echo "                                                   "
+ tput cup 11 27; read title || continue
+ if test "$title" = "q" -o "$title" = "Q"
+ then 
+  clear ; exit;
+ fi
+ done
+command=`grep -i "$title" $movies`
+if test -z "$command" 
+then 
+ tput cup 12 15; echo -e "\e[104mThere are no movies with such title :(\e[0m"
+else 
+ tput cup 13 15; echo -e "\e[96;45mLook what we found! :)\e[0m"
+ tput cup 14 15; echo $command | tr ":" "-"
+tput cup 16 10; echo -e "\e[1mChoose a field:\e[0m "
+tput cup 16 27; read field || continue
+if test "$field" = "Q" -o "$field" = "q"
+then
+ clear ; exit
+fi
+
+while test $field -gt 5 
+do
+ tput cup 16 31; echo -e "\e[1;31mDigit should be 1 - 5\e[0m Try again..."
+ sleep 1s;
+ tput cup 16 27; echo "                                                 "
+ tput cup 16 27; read field || continue
+ if test "$field" = "q" -o "$field" = "Q"
+ then 
+  clear ; exit
+ fi
+done
+echo "$command" > file_to_check
+cutField=`cut -f $field -d: file_to_check`
+tput cup 17 10; echo -e "\e[4mEnter new data for this field:\e[24m "
+tput cup 17 41; read newdata || continue
+sed s/"$cutField"/"$newdata"/ file_to_check > new_file_to_check
+sed /"$cutField"/d $movies > new_my_movie_list
+cat new_file_to_check >> new_my_movie_list
+mv new_my_movie_list my_movies_list
+rm new_file_to_check
+rm file_to_check
+chmod ugo+x my_movies_list
+fi
+ tput cup 19 5; echo "Press ENTER to continue..."
+ tput cup 19 31; read prompt || continue
+ for i in 11 12 13 14 15 16 17 18 19
+ do
+ tput cup $i 0; echo "                                                                                                  "
+ done
+done

@@ -1,0 +1,29 @@
+#!/bin/bash
+clear;
+tput cup 2 35; echo -e "\e[1;31mCopyright 2016 - Viktor Salnichenko - COMP301\e[0m"
+echo -e -n "\e[1;4;43mHello, "
+./user_recognition
+echo -e "\e[0mYou use the \e[1;4;32m'My Movie List'\e[0;24m application"
+echo -e "\n\e[106mThese are instructions how to use this program\e[0m\n"
+echo -e "\e[1m1)\e[0m The width of your terminal should be \e[4mat least 95px\e[24m for appropriate usage"
+echo -e "\e[1m2)\e[0m You can type an option in the choice line regardless the case" 
+echo -e "\e[1m3)\e[0m You can \e[4madd, edit, search, sort and delete\e[24m the list of movies"
+echo -e "\e[1m4)\e[0m The field with \e[34m'Director'\e[0m information should be written in this way"
+echo "  'D.Gansel' - where 'D.' - first name and 'Gansel' - last name"
+#echo -e "\e[1m5)\e[0m You can type plenty of genre for one film, typing them, s#haring by commas"
+echo -e "\e[1m6)\e[0m The delimiter of each field is \e[32msemilocomn(':')\e[0m"
+echo -e "\e[1m7)\e[0m You must type the year of the movie creation in numeric format, otherwise"
+echo "   you will receive an error"
+echo -e "\e[1m8)\e[0m When you \e[102madd a new movie\e[0m to the least, the 'Title' and 'Director' fields" 
+echo "  are mandatory, other field you can type if desired"
+echo -e "\e[1m9)\e[0m When you want to \e[102mdelete movie\e[0m, you can do it by typing title, year," 
+echo "  director of country if the movie. If movie doesn't exist, you will receive"
+echo "  relevant message about nonexisting of the movie"
+echo -e "\e[1m10)\e[0m You can \e[102msearch a movie\e[0m just write a part of the title or other fields"
+echo -e "\e[1m11)\e[0m You can \e[102medit the movie\e[0m list by choose the relevant row"
+echo -e "by \e[1mTitle\e[0m or \e[1mDirector\e[0m fields"
+tput cup 23 50; echo "Press ENTER to continue..."
+tput cup 23 77; read prompt
+clear; exit
+
+

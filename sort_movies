@@ -1,0 +1,41 @@
+#!/bin/bash
+clear
+. .sortfunct
+let y=0
+while test $y=0
+do
+tput cup 0 5; echo -e "\e[1;31mImportant note!\e[0m Your terminall should be at least 95px in width"
+tput cup 2 35; echo -e "\e[1;31mCopyright 2016 - Viktor Salnichenko - COMP301\e[0m"
+tput cup 2 10; echo -e "\e[1;37;44m             "
+tput cup 3 10; echo -e " Sort Movies "
+tput cup 4 10; echo -e "             \e[0m"
+tput cup 6 10; echo -e "\e[1;34m1\e[0m - Sort by title"
+tput cup 7 10; echo -e "\e[1;34m2\e[0m - Sort by yead in reverse order"
+tput cup 8 10; echo -e "\e[1;34m3\e[0m - Sort by year"
+tput cup 9 10; echo -e "\e[1;34m4\e[0m - Sort by director"
+tput cup 10 10; echo -e "\e[1;34m5\e[0m - Sort by country"
+tput cup 11 10; echo -e "\e[1;34mQ\e[0m - Leave '\e[4mSort Movies\e[0m'"
+tput cup 12 10; echo "Choose option:"
+tput cup 12 25; read option || continue
+tput cup 12 25; echo "        "
+case $option in
+    [1]) sorted_by_title ;;
+    [2]) sorted_by_year_reversed ;;
+    [3]) sorted_by_year ;;
+    [4]) sorted_by_director ;;
+    [5]) sorted_by_country ;;
+    [Qq]) clear ; exit ;;
+    *)
+    numberOfLines=$(perl line_count_sort_movies)
+    let intNumber=$numberOfLines*1
+    i=12
+    maxlength=$(($i+$intNumber+1))
+    while test $i -lt $maxlength
+    do
+        tput cup $i 0;
+	echo "                                                                                                                  "
+	((i++))
+    done
+    tput cup 13 10; echo -e "\e[1;31mWrong name of option!\e[0m Try again...";;
+esac
+done

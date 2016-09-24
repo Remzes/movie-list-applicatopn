@@ -1,0 +1,188 @@
+#!/bin/bash
+clear
+check="y"
+while test "$check" = "y"
+do
+tput cup 2 35; echo -e "\e[1;31mCopyright 2016 - Viktor Salnichenko - COMP301\e[0m"
+tput cup 2 10; echo -e "\e[1;37;44m                  "
+tput cup 3 10; echo -e "   Delete Movie   "
+tput cup 4 10; echo -e "                  \e[0m"
+tput cup 6 10; echo -e "Choose the domain:"
+tput cup 8 12; echo -e "\e[1m1)\e[0m Title "
+tput cup 9 12; echo -e "\e[1m2)\e[0m Year "
+tput cup 10 12; echo -e "\e[1m3)\e[0m Director"
+tput cup 11 12; echo -e "\e[1m4)\e[0m Country"
+tput cup 12 11; echo -e "\e[1m'Q'\e[0m - Exit the program"
+tput cup 6 30; read choice || continue
+tput cup 6 30; echo "     "
+case $choice in
+[Qq]) #EXIT THE PROGRAM
+ clear ; exit;;
+
+[1]) #DELETE BY THE TITLE
+tput cup 14 5;
+echo -e "Enter the title of the movie: ";
+tput cup 14 40; read name || continue;
+if test "$name" = "q" -o "$name" = "Q"
+then
+ clear ; exit;
+fi
+COMMAND=`grep -i $name my_movies_list`
+output=`echo $COMMAND`
+if [ "$output" != "" ];
+ then
+ touch file
+ grep -v -i "$name" my_movies_list >> file
+ mv file my_movies_list;
+ tput cup 15 5;
+ echo -e "\e[1;31mAttention!\e[0m The record with \e[1m$name\e[0m title was deleted"
+else
+ tput cup 15 5; echo -e "There are no movies with \e[1m$name\e[0m title"
+fi;
+ tput cup 16 5; echo "Press 'Q' to leave program"
+ tput cup 17 5; echo "Press ENTER to continue..."
+ tput cup 18 5; echo "Choice: "
+ tput cup 18 14; read prompt;
+ if test "$prompt" = "Q" -o "$prompt" = "q"
+ then
+  clear ; exit
+ fi
+ for i in 14 15 16 17 18
+ do
+ tput cup $i 5; echo "                                                               "
+ done
+ tput cup 14 40; echo "                         ";;
+
+[2]) #DELETE BY THE YEAR
+check="n"
+while test "$check" = "n"
+do
+tput cup 14 35; echo "                                                      "
+tput cup 14 5; echo -e "Enter the year of movie(s): ";
+tput cup 14 35; read year
+if test "$test" = "q" -o "$test" = "Q"
+then
+ clear ; exit
+fi
+echo $year | grep [0-9] > test_alpha.log
+if test ! -s "test_alpha.log" 
+ then
+ if test "$year" = "q" -o "$year" = "Q"
+ then
+  clear ; exit;
+ else
+  tput cup 14 35; echo -e "\e[1;31mWrong type of input!\e[0m"
+  sleep 1s;
+  tput cup 14 35; echo "                                     "
+  tput cup 14 35; echo "Press ENTER to continue OR 'Q' to exit the program..."
+  tput cup 14 35; read prompt
+  if test "$prompt" = "Q" -o "$prompt" = "q"
+  then 
+  clear ; exit;
+  fi
+rm test_alpha.log
+fi
+ else
+COMMAND=`grep -i $year my_movies_list`
+output=`echo $COMMAND`
+if [ "$output" != "" ];
+ then
+ touch file
+ grep -v -i "$year" my_movies_list >> file
+ mv file my_movies_list;
+ tput cup 15 5;
+ echo -e "\e[1;31mAttention!\e[0mThe record with \e[1m$year\e[0m year was deleted"
+else
+ tput cup 15 5; echo -e "There are no movies with \e[1m$year\e[0m year"
+fi
+ tput cup 16 5; echo "Press 'Q' to leave program"
+ tput cup 17 5; echo "Press ENTER to continue..."
+ tput cup 18 5; echo "Choice: "
+ tput cup 18 14; read prompt;
+ if test "$prompt" = "Q" -o "$prompt" = "q"
+ then
+  clear ; exit
+ fi
+ for i in 14 15 16 17 18
+ do
+ tput cup $i 5; echo "                                                               "
+ done
+ tput cup 14 40; echo "                         ";
+fi
+done;;
+[3]) #DELETE BY THE DIRECTOR
+tput cup 14 5;
+echo -e "Enter the difector of the movie: ";
+tput cup 14 40; read director || continue;
+if test "$director" = "Q" -a "$director" = "q"
+then
+ clear ; exit;
+fi
+COMMAND=`grep -i $director my_movies_list`
+output=`echo $COMMAND`
+if [ "$output" != "" ];
+ then
+ touch file
+ grep -v -i "$director" my_movies_list >> file
+ mv file my_movies_list;
+ tput cup 15 5;
+ echo -e "\e[1;31Attention[0mThe record with \e[1m$director\e[0m title was deleted"
+else
+ tput cup 15 5; echo -e "There are no movies with \e[1m$director\e[0m title"
+fi
+ tput cup 15 5; echo -e "There are no movies with \e[1m$director\e[0m title"
+ tput cup 16 5; echo "Press 'Q' to leave program"
+ tput cup 17 5; echo "Press ENTER to continue..."
+ tput cup 18 5; echo "Choice: "
+ tput cup 18 14; read prompt;
+ if test "$prompt" = "Q" -o "$prompt" = "q"
+ then
+  clear ; exit
+ fi
+ for i in 14 15 16 17 18
+ do
+ tput cup $i 5; echo "                                                               "
+ done
+ tput cup 14 40; echo "                         ";;
+
+[4]) #DELETE BY THE COUNTRY
+tput cup 14 5;
+echo -e "Enter the country of the movie: ";
+tput cup 14 40; read country || continue;
+if test "$country" = "q" -o "$country" = "Q"
+then
+ clear ; exit ;
+fi
+COMMAND=`grep -i $country my_movies_list`
+output=`echo $COMMAND`
+if [ "$output" != "" ];
+ then
+ touch file
+ grep -v -i "$country" my_movies_list >> file
+ mv file my_movies_list;
+ tput cup 15 5;
+ echo -e "\e[1;31mAttention!\e[0mThe record with \e[1m$country\e[0m title was deleted"
+else
+ tput cup 15 5; echo -e "There are no movies with \e[1m$country\e[0m title"
+fi;
+ tput cup 16 5; echo "Press 'Q' to leave program"
+ tput cup 17 5; echo "Press ENTER to continue..."
+ tput cup 18 5; echo "Choice: "
+ tput cup 18 14; read prompt;
+ if test "$prompt" = "Q" -o "$prompt" = "q"
+ then
+  clear ; exit
+ fi
+ for i in 14 15 16 17 18
+ do
+ tput cup $i 5; echo "                                                               "
+ done
+ tput cup 14 40; echo "                         ";;
+*)
+tput cup 6 30;
+echo -e "\e[1;31mWrong option!\e[0m Press ENTER to try again...";
+tput cup 6 30; read prompt;
+tput cup 6 30; echo "                                                       ";;
+esac
+done
+

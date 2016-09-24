@@ -1,0 +1,182 @@
+#!/bin/bash
+clear
+trap "rm ~/tmp/* 2> /dev/null; exit" 0 1 2 3
+movies=~/source3/my_movies_list
+checkVariable='a'
+while test $checkVariable = 'a'
+do
+clear
+tput cup 1 45; echo -e "\e[1;31mCopyright 2016 - Viktor Salnichenko - COMP301\e[0m"
+tput cup 3 20; echo -e '\e[1;37;44m'"               "
+tput cup 4 20; echo -e " Add New Movie "
+tput cup 5 20; echo -e "               \e[0m"
+tput cup 7 15; echo -e "\e[1mEnter Title      :\e[0m "
+tput cup 7 35; read title #READ TITLE NAME
+if test "$title" = "q" -o "$title" = "Q"
+then
+  clear ; exit
+fi
+while test "$title" = ""
+do
+    tput cup 6 25; echo -e "\e[1;31m'Title' field can't be empty!\e[0m Try again..."
+    tput cup 7 35; read title
+    if test $title != ""
+    then 
+      tput cup 6 25; echo -e "                                                         "
+    fi
+    if test "$title" = 'q' -o "$title" = "Q"
+    then
+      clear ; exit
+    fi
+done
+
+#case ${title:1} in
+# [a-z])
+#  tput cup 6 25;
+#  echo -e "\e[1;31mThe title must not begin by lowercase letter!\e[0m Try again. ..";
+#  tput cup 7 35; read title 
+#  tput cup 6 25;   
+#  echo "                                                                        #   "
+#  while test "$title" = ""
+#  do
+#    tput cup 6 25; echo -e "\e[1;31m'Title' field can't be empty!\e[0m Try again..."
+#    tput cup 7 35; read title
+#  done;;
+#esac
+
+tput cup 8 15; echo -e "\e[1mEnter Year       :\e[0m " #READ YEAR OF MOVIE
+tput cup 8 35; read year
+if test "$year" = 'q' -o "$year" = "Q"
+    then
+      clear ; exit
+    fi
+    if test "$year" = 'q' -o "$year" = "Q"
+    then
+      clear ; exit
+    fi
+    if test "$year" = "<>" #RETURN TO THE PREVIOUS FIELD
+    then 
+    tput cup 7 35; echo "                              "
+    tput cup 7 35; read title
+    while test "$title" = ""
+do
+    tput cup 6 25; echo -e "\e[1;31m'Title' field can't be empty!\e[0m Try again..."
+    tput cup 7 35; read title
+    if test $title != ""
+    then 
+      tput cup 6 25; echo -e "                                                         "
+    fi
+    if test "$title" = 'q' -o "$title" = "Q"
+    then
+      clear ; exit
+    fi
+done
+    tput cup 8 35; echo "    "
+    tput cup 8 35; read year
+fi
+case ${year:0:1} in
+ [a-z])
+  tput cup 6 25;
+  echo -e "\e[1;31mThe year must begin by digits!\e[0m Try again. ..";
+  tput cup 8 35; echo "          "
+  tput cup 8 35; read year
+  tput cup 6 25; echo "                                                        "
+ esac
+
+tput cup 9 15; echo -e "\e[1mEnter Genre      :\e[0m " #ENTER GENRE OF MOVIE
+tput cup 9 35; read genre
+if test "$genre" = 'q' -o "$genre" = "Q"
+    then
+      clear ; exit
+    fi
+if test "$genre" = '<>' #RETURN TO THE PREVIOUS FIELD
+then 
+ tput cup 8 35; echo "               "
+ tput cup 8 35; read year
+ case ${year:0:1} in
+ [a-z])
+  tput cup 6 25;
+  echo -e "\e[1;31mThe year must begin by digits!\e[0m Try again. ..";
+  tput cup 8 35; echo "          "
+  tput cup 8 35; read year 
+  tput cup 6 25; echo "                                                           "
+  esac
+    if test "$year" = 'q'
+    then
+      clear ; exit
+    fi
+ tput cup 9 35; echo "  "
+ tput cup 9 35; read genre
+fi
+
+
+tput cup 10 15; echo -e "\e[1mEnter a Director :\e[0m " #ENTER THE DIRECTOR OF MOVIE
+tput cup 10 35; read director
+if test "$director" = "q" -o "$director" = "Q"
+then
+ clear ; exit
+fi
+while test "$director" = ""
+do
+    tput cup 6 25; echo -e "\e[1;31m'Director' field can't be empty!\e[0m Try again..."
+    tput cup 10 35; read director
+    if test $director != ""
+    then 
+      tput cup 6 25; echo -e "                                                         "
+    fi
+    if test "$director" = 'q' -o "$director" = "Q"
+    then
+      clear ; exit
+    fi
+done
+   if test "$director" = '<>' #RETURN TO THE PREVIOUS FIELD
+then 
+ tput cup 9 35; echo "               "
+ tput cup 9 35; read genre
+    if test "$genre" = 'q' -o "$genre" = "Q"
+    then
+      clear ; exit
+    fi
+ tput cup 10 35; echo "             "
+ tput cup 10 35; read director
+fi 
+
+#NO REDUNDANCY 
+while grep "$title" $movies > ~/tmp 
+do
+while  grep "$director" $movies > ~/tmp
+do
+   tput cup 18 3; echo -e "\e[31mAttention!!!\e[0mYou already have this movie in your list"
+   tput cup 19 4; tr ':' ' ' < ~/tmp
+   tput cup 20 3; echo "Press enter to close..."
+   tput cup 20 26; read prompt
+   clear ; exit
+done
+done
+
+tput cup 11 15; echo -e "\e[1mEnter a Country  :\e[0m " #ENTER THE COUNTRY OF MOVIE
+tput cup 11 35; read country
+if test "$country" = 'q' -o "$country" = "Q"
+    then
+      clear ; exit
+    fi
+   if test "$country" = '<>' #RETURN TO THE PREVIOUS FIELD
+then 
+ tput cup 10 35; echo "               "
+ tput cup 10 35; read genre
+    if test "$genre" = 'q' -o "$genre" = "Q"
+    then
+      clear ; exit
+    fi
+ tput cup 11 35; echo "             "
+ tput cup 11 35; read country
+fi 
+tput cup 12 10; echo -e '\e[1;41m'"\e[97mNew movie is successfuly added to you movies list!\e[0m"
+echo "$title:$year:$genre:$director:$country" >> $movies
+tput cup 13 15; echo -e "\e[4mAdd new one?\e[24m Choose (a)dd or (q)uit:  "
+tput cup 13 51; read checkVariable || continue
+if test $checkVariable = 'q'
+then
+  clear ; exit
+fi
+done

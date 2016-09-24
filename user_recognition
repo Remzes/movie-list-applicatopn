@@ -1,0 +1,5 @@
+#!/bin/bash
+user=`whoami`
+grep "$user" /etc/passwd > user_file
+awk -F: '{print $5}' user_file
+rm user_file
